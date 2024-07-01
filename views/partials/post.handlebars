@@ -1,0 +1,24 @@
+{{!-- Extends the main layout --}}
+{{#extends 'main'}}
+
+{{!-- Defines the content block --}}
+{{#block 'content'}}
+  <article>
+    <h1>{{title}}</h1>
+    <p>{{content}}</p>
+    <footer>Posted by {{username}} on {{format_date createdAt}}</footer>
+  </article>
+  <section>
+    <h2>Comments</h2>
+    {{#each comments}}
+      {{> comment}}
+    {{/each}}
+  </section>
+  <section>
+    <form class="comment-form">
+      <textarea name="comment-body" placeholder="Add a comment" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+  <script src="/js/comment.js"></script>
+{{/block}}

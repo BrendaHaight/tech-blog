@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const { User, Post } = require("../models");
+const { User, Post, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
+// Route to get all posts for the homepage
 router.get("/", async (req, res) => {
   try {
     const postData = await Post.findAll({
@@ -10,13 +11,22 @@ router.get("/", async (req, res) => {
           model: User,
           attributes: ["name"],
         },
+        {
+          model: Comment,
+          include: [
+            {
+              model: User,
+              attributes: ["name"],
+            },
+          ],
+        },
       ],
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
 
     res.render("homepage", {
-      post,
+      posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -28,8 +38,23 @@ router.get("/", async (req, res) => {
 router.get("/post/:id", async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ["name"] }],
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Comment,
+          include: [
+            {
+              model: User,
+              attributes: ["name"],
+            },
+          ],
+        },
+      ],
     });
+
     const post = postData.get({ plain: true });
 
     res.render("post", {
@@ -44,7 +69,7 @@ router.get("/post/:id", async (req, res) => {
 // Route to render the dashboard (protected route)
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
-    // find the logged-in user based on the session ID
+    // Find the logged-in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [{ model: Post }],
@@ -81,13 +106,17 @@ router.get("/signup", (req, res) => {
 });
 
 // Logout route
-router.get("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return res.status(500).json({ message: "Logout failed", error: err });
-    }
-    res.redirect("/login");
-  });
+router.post("/logout", (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Logout failed", error: err });
+      }
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
 });
 
 module.exports = router;
