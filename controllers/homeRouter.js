@@ -9,27 +9,30 @@ router.get("/", async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["name"],
+          attributes: ["username"],
         },
         {
           model: Comment,
           include: [
             {
               model: User,
-              attributes: ["name"],
+              attributes: ["username"],
             },
           ],
+          as: "comments",
         },
       ],
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));
+    console.log("Posts with comments:", posts);
 
     res.render("homepage", {
       posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
+    console.error("Get request failed", err);
     res.status(500).json(err);
   }
 });
@@ -41,16 +44,17 @@ router.get("/post/:id", async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["name"],
+          attributes: ["username"],
         },
         {
           model: Comment,
           include: [
             {
               model: User,
-              attributes: ["name"],
+              attributes: ["username"],
             },
           ],
+          as: "comments",
         },
       ],
     });
@@ -62,6 +66,7 @@ router.get("/post/:id", async (req, res) => {
       logged_in: req.session.logged_in,
     });
   } catch (err) {
+    console.error("Failed to GET this post", err);
     res.status(500).json(err);
   }
 });
@@ -69,14 +74,15 @@ router.get("/post/:id", async (req, res) => {
 // Route to render the dashboard (protected route)
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
+    console.log("line 73/dashboard");
     // Find the logged-in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
       include: [{ model: Post }],
     });
-
+    console.log("line 79 /dashboard", userData);
     const user = userData.get({ plain: true });
-
+    console.log(user);
     res.render("dashboard", {
       ...user,
       logged_in: true,

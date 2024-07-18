@@ -1,13 +1,11 @@
-document
-  .getElementById("login-form")
-  ?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const email = document.querySelector('input[name="email"]').value.trim();
-    const passord = document
-      .querySelector('input[name="password"]')
-      .value.trim();
+const loginFormHandler = async (event) => {
+  event.preventDefault();
 
-    if (email && password) {
+  const email = document.querySelector("#email-login").value.trim();
+  const password = document.querySelector("#password-login").value.trim();
+
+  if (email && password) {
+    try {
       const response = await fetch("/api/users/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -17,7 +15,17 @@ document
       if (response.ok) {
         document.location.replace("/dashboard");
       } else {
-        alert("Failed to log in");
+        const result = await response.json();
+        alert(`Failed to log in: ${result.message}`);
       }
+    } catch (error) {
+      console.error("Error during fetch:", error);
     }
-  });
+  } else {
+    alert("All fields are required.");
+  }
+};
+
+document
+  .querySelector(".login-form")
+  .addEventListener("submit", loginFormHandler);

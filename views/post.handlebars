@@ -1,0 +1,30 @@
+<main class="container">
+  <article class="post-details">
+    <h1>{{title}}</h1>
+    <p>{{content}}</p>
+    <p>By: {{user.username}}</p>
+  </article>
+
+  {{#if logged_in}}
+    <section class="comment-section">
+      <form class="comment-form">
+        <textarea id="comment-body" placeholder="Leave a comment"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div class="comments-list">
+        {{#each comments}}
+          <div class="comment">
+            <p>{{this.comment_text}}</p>
+            <p>By: {{this.user.username}}</p>
+          </div>
+        {{else}}
+          <p>No comments yet.</p>
+        {{/each}}
+      </div>
+    </section>
+  {{else}}
+    <p><a href="/login">Log in</a> to leave a comment.</p>
+  {{/if}}
+</main>
+
+{{#if logged_in}}<script src="/js/comment.js"></script>{{/if}}

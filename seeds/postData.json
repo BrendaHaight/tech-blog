@@ -1,27 +1,27 @@
 [
   {
-    "title": "First Post",
-    "content": "This is content of the fist post",
+    "title": "Understanding JavaScript Closures",
+    "content": "In this post, we'll explore JavaScript closures, a fundamental concept for advanced JavaScript development. We'll see how closures work and how they are used in various scenarios.",
     "user_id": 1
   },
   {
-    "title": "Second Post",
-    "content": "This is the content of the second post",
+    "title": "Introduction to Node.js",
+    "content": "Node.js is a powerful JavaScript runtime built on Chrome's V8 engine. In this post, we will cover the basics of Node.js, its architecture, and how to get started with building a simple server.",
     "user_id": 2
   },
   {
-    "title": "Third Post",
-    "content": "This is the content of the third post",
-    "used_id": 3
+    "title": "Tips for Writing Clean Code",
+    "content": "Writing clean code is essential for maintaining and scaling applications. This post will share some practical tips and best practices for writing clean and maintainable code.",
+    "user_id": 3
   },
   {
-    "title": "Third Post",
-    "content": "This is the content of the fourth post",
-    "used_id": 4
+    "title": "Building RESTful APIs with Express",
+    "content": "Express is a fast and minimal web framework for Node.js. In this post, we will learn how to build RESTful APIs using Express, including routing, middleware, and error handling.",
+    "user_id": 4
   },
   {
-    "title": "Third Post",
-    "content": "This is the content of the fifth post",
-    "used_id": 5
+    "title": "Understanding Asynchronous JavaScript",
+    "content": "Asynchronous JavaScript can be tricky to understand. In this post, we will demystify async programming in JavaScript, covering callbacks, promises, and async/await.",
+    "user_id": 5
   }
 ]

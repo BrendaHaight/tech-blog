@@ -1,0 +1,79 @@
+/* Post list styles */
+.post-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.post-card {
+  background: #fff;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 45%;
+}
+
+.post-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.post-card p {
+  margin-bottom: 10px;
+}
+
+/* Comment section styles */
+.comment {
+  background: #e9e9e9;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.comment footer {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Form styles */
+form {
+  margin: 20px 0;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #555;
+}
+
+/* Small text */
+small {
+  display: block;
+  margin-top: 10px;
+  color: #666;
+}

@@ -20,11 +20,6 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // Add name field
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -47,11 +42,12 @@ User.init(
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
-      beforeUpdate: async (updateUserData) => {
-        updateUserData.password = await bcrypt.hash(
-          updateUserData.password,
+      beforeUpdate: async (updatedUserData) => {
+        updatedUserData.password = await bcrypt.hash(
+          updatedUserData.password,
           10
         );
+        return updatedUserData;
       },
     },
     sequelize,

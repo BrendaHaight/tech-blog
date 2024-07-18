@@ -18,9 +18,9 @@ document
     event.preventDefault();
     const email = document
       .querySelector('input[name="email"]')
-      .ariaValueMax.trim();
+      .ariaValue.trim();
     const password = document
-      .querySelector('input[name="passoword"]')
+      .querySelector('input[name="password"]')
       .ariaValueMax.trim();
 
     if (email && password) {
@@ -117,3 +117,11 @@ document
       }
     }
   });
+
+// Post content click to view post
+document.querySelectorAll(".post-content").forEach((postContent) => {
+  postContent.addEventListener("click", () => {
+    const postId = postContent.getAttribute("data-id");
+    window.location.href = `/post/${postId}`;
+  });
+});

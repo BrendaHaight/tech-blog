@@ -5,23 +5,29 @@ const postData = require("./postData.json");
 const bcrypt = require("bcrypt");
 
 const seedDatabase = async () => {
-  await sequelize.sync({ force: true });
+  try {
+    await sequelize.sync({ force: true });
 
-  const users = await Promise.all(
-    userData.map(async (user) => {
-      const hashedPassword = await bcrypt.hash(user.password, 10);
-      return { ...user, password: hashedPassword };
-    })
-  );
+    const users = await Promise.all(
+      userData.map(async (user) => {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        return { ...user, password: hashedPassword };
+      })
+    );
 
-  await User.bulkCreate(users, {
-    individualHooks: true,
-    returning: true,
-  });
+    await User.bulkCreate(users, {
+      individualHooks: true,
+      returning: true,
+    });
 
-  await Post.bulkCreate(postData);
+    await Post.bulkCreate(postData);
 
-  process.exit(0);
+    console.log("All data seeded successfully!");
+  } catch (err) {
+    console.error("Failed to seed database:", err);
+  } finally {
+    process.exit(0);
+  }
 };
 
 seedDatabase();
